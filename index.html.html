@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="3; url=steam://connect/131.196.196.197:27330">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectando ao Servidor CS:GO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 500px;
+            padding: 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2de5fd;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 3rem;
+        }
+
+        .loading-container {
+            margin: 2rem 0;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto 1rem;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #fd2173, #2de5fd);
+            border-radius: 2px;
+            width: 0%;
+            animation: loading 3s ease-in-out forwards;
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 60%; }
+            100% { width: 100%; }
+        }
+
+        .loading-text {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top: 3px solid #2de5fd;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 2rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .server-info {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .server-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .server-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .server-label {
+            color: #888;
+        }
+
+        .server-value {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .loading-bar {
+                width: 250px;
+            }
+        }
+
+         .background-logo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: auto;
+            opacity: 0.1;
+            filter: blur(3px);
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+      <div class="background-logo">
+        <img src="https://media.discordapp.net/attachments/1200897413276258384/1200899048069156885/logo.png?ex=684742e4&is=6845f164&hm=c5a1d727b5173f05266ff56e0398880dabaf62bf715a924c00ba208c6ed3f686&format=webp&quality=lossless&width=826&height=826&" alt="INSANO'S Background" style="width: 100%; height: auto;">
+    </div>
+    <div class="container">
+        <div class="logo">CS:GO</div>
+        <h1 class="title">Conectando ao Servidor</h1>
+        <p class="subtitle">Aguarde enquanto estabelecemos a conexão...</p>
+        
+        <div class="loading-container">
+            <div class="spinner"></div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-text" id="loadingText">Inicializando conexão...</div>
+        </div>
+
+        <div class="server-info">
+            <div class="server-detail">
+                <span class="server-label">Servidor:</span>
+                <span class="server-value">[BR] iNsanos HvH | Scout Only</span>
+            </div>
+            <div class="server-detail">
+                <span class="server-label">IP:</span>
+                <span class="server-value">131.196.196.197:27330</span>
+            </div>
+           
+            <div class="server-detail">
+                <span class="server-label">Status:</span>
+                <span class="server-value">
+                    <span class="status-dot"></span>Online
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Counter-Strike: Global Offensive © Valve Corporation
+    </div>
+
+    <script>
+        const loadingTexts = [
+            'Inicializando conexão...',
+            'Verificando servidor...',
+            'Autenticando usuário...',
+            'Carregando mapas...',
+            'Sincronizando dados...',
+            'Conectando...'
+        ];
+
+        let currentTextIndex = 0;
+        const loadingTextElement = document.getElementById('loadingText');
+
+        function updateLoadingText() {
+            loadingTextElement.textContent = loadingTexts[currentTextIndex];
+            currentTextIndex = (currentTextIndex + 1) % loadingTexts.length;
+        }
+
+     
+        const textInterval = setInterval(updateLoadingText, 500);
+
+       
+        setTimeout(() => {
+            clearInterval(textInterval);
+            loadingTextElement.textContent = 'Conectado! Redirecionando...';
+            
+          
+        }, 3000);
+    </script>
+</body>
+</html>
